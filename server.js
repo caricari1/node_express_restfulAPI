@@ -44,10 +44,19 @@ app.get('/todos/:id', function(req,res){
       res.status(404).send();
     }
 })
+//._.findWhere finds the first value that matches all of the key value pairs
 
 app.post('/todos', function(req, res){
-  var body = req.body;
+  //.pick to prevent SQL attacks and ensure only getting back description and completed
+  var body = _.pick(req.body, 'description', 'completed');
+  //isBoolean and isString allow us to validate we have the body object through body parser
+  if(!_.isBoolean(body.completed) || !_isString(body.description)
+    || body.description.trim().length === 0){
+//.trim takes out white space
+      return res.status(400).send();
+    }
   //add id field. we're telling the program that the body id is going to equal the variable, up one after each
+  body.description = body.description.trim();
   body.id = todoNextID
   todoNextID ++;
   //we just parsed body with id and now we want to persist that to temporary db

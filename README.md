@@ -13,3 +13,5 @@ Created 2nd GET / todos/:id & tested it with postman & pushed to heroku and crea
 
 //REFFACTOR using underscore.js
 get todos/:id
+
+refactor POST todos using function .pick
